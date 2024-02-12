@@ -1,0 +1,73 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        200:
+          description: Carts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        500:
+          description: Internal Server Error
+
+  /api/carts/{cartId}:
+    get:
+      summary: Get a cart by its ID
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          description: ID of the cart
+          schema:
+            type: string
+      responses:
+        200:
+          description: Cart retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        500:
+          description: Internal Server Error
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the cart
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: ID of the product
+              quantity:
+                type: integer
+                description: Quantity of the product
+      example:
+        _id: 5f9d4b7b9c9d6b2b1c7d7b7b
+        products:
+          - product: 5f9d4b7b9c9d6b2b1c7d7b7b
+            quantity: 2
+
+  requestBodies:
+    createCart:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Cart'
+      description: Data for creating a cart

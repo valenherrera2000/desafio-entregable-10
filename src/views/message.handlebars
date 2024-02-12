@@ -1,0 +1,11 @@
+<h1>Messages</h1>
+
+<ul>
+    {{#each messages}}
+        <li>
+            <strong>{{this.user}}:</strong> {{this.message}}
+            <br>
+            <small>{{this.createdAt}}</small>
+        </li>
+    {{/each}}
+</ul>

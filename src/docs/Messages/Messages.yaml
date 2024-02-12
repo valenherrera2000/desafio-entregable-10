@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Messages API
+  version: 1.0.0
+paths:
+  /api/messages:
+    get:
+      summary: Get all messages
+      tags:
+        - Messages
+      responses:
+        200:
+          description: Messages retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        500:
+          description: Internal Server Error
+
+  /api/messages/{messageId}:
+    get:
+      summary: Get a message by its ID
+      tags:
+        - Messages
+      parameters:
+        - in: path
+          name: messageId
+          required: true
+          description: ID of the message
+          schema:
+            type: string
+      responses:
+        200:
+          description: Message retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        500:
+          description: Internal Server Error
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the message
+        user:
+          type: string
+          description: ID of the user
+        message:
+          type: string
+          description: Message content
+      example:
+        _id: 5f9d4b7b9c9d6b2b1c7d7b7b
+        user: 5f9d4b7b9c9d6b2b1c7d7b7b
+        message: "Hello, how are you?"

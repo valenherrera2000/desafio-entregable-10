@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  version: 1.0.0
+paths:
+  /api/users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        200:
+          description: Users retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        500:
+          description: Internal Server Error
+
+  /api/users/{userId}:
+    get:
+      summary: Get a user by their ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: ID of the user
+          schema:
+            type: string
+      responses:
+        200:
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal Server Error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the user
+        first_name:
+          type: string
+          description: First name of the user
+        last_name:
+          type: string
+          description: Last name of the user
+        email:
+          type: string
+          description: Email of the user
+        password:
+          type: string
+          description: Password of the user
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+            - premium
+          description: Role of the user
+      example:
+        _id: 5f9d4b7b9c9d6b2b1c7d7b7b
+        first_name: "John"
+        last_name: "Doe"
+        email: "john.doe@example.com"
+        password: "hashedpassword"
+        role: "user"
